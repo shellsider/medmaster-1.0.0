@@ -19,42 +19,42 @@
 			link: '/dashboard/mbti-chatbot',
 			icon: `${MBTIIcon}`
 		},
-		// {
-		// 	title: 'Report Inference',
-		// 	description: 'Drafts a first inference based on the report',
-		// 	link: '/dashboard/report-ineference',
-		// 	icon: `${ReportIcon}`
-		// },
+		{
+			title: 'Report Inference',
+			description: 'Drafts a first inference based on the report',
+			link: '/dashboard/report-ineference',
+			icon: `${ReportIcon}`
+		},
 		{
 			title: 'Telemedicine',
 			description: 'Remote consultations with advanced AI support',
 			link: '/dashboard/general-health-support',
 			icon: `${TelemedicenIcon}`
-		}
-		// {
-		// 	title: 'Yoga',
-		// 	description: 'Yoga guide for beginners to attain good posture',
-		// 	link: '/dashboard/yoga',
-		// 	icon: `${YogaIcon}`
-		// },
-		// {
-		// 	title: 'Exercise',
-		// 	description: 'Helps rectify the form of the person during workouts',
-		// 	link: '/dashboard/exercise',
-		// 	icon: `${ExerciseIcon}`
-		// },
+		},
+		{
+			title: 'Yoga',
+			description: 'Yoga guide for beginners to attain good posture',
+			link: '/dashboard/yoga',
+			icon: `${YogaIcon}`
+		},
+		{
+			title: 'Exercise',
+			description: 'Helps rectify the form of the person during workouts',
+			link: '/dashboard/exercise',
+			icon: `${ExerciseIcon}`
+		},
 		// {
 		// 	title: 'Brain Tumor Classification',
 		// 	description: 'Detects and classifies brain tumors',
 		// 	link: '/dashboard/classifier',
 		// 	icon: `${BrainTumorIcon}`
 		// },
-		// {
-		// 	title: 'Chat Room',
-		// 	description: 'Collaborate with professionals in a secure chat room',
-		// 	link: '/dashboard/chat',
-		// 	icon: `${ChatRoomIcon}`
-		// }
+		{
+			title: 'Chat Room',
+			description: 'Collaborate with professionals in a secure chat room',
+			link: '/dashboard/chat',
+			icon: `${ChatRoomIcon}`
+		}
 	];
 
 	async function handleDashboardClick() {
@@ -185,7 +185,7 @@
 					<span class="text-sm text-blue-100 md:text-base">Diagnostic Accuracy</span>
 				</div>
 				<div class="flex flex-col items-center p-3 text-center">
-					<span class="mb-1 text-3xl font-bold md:text-4xl">10+</span>
+					<span class="mb-1 text-3xl font-bold md:text-4xl">5+</span>
 					<span class="text-sm text-blue-100 md:text-base">Health Services</span>
 				</div>
 				<div class="flex flex-col items-center p-3 text-center">

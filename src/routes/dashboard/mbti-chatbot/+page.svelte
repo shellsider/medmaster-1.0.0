@@ -7,6 +7,7 @@
 	let showChatbot = false;
 	let summaryPrompt = '';
 	let computedMbti = '';
+	let language = 'en';
 
 	// Your Botpress/chatbot iframe URL remains the same.
 	let chatbotUrl =
@@ -42,7 +43,7 @@
 			key: 'q5',
 			dimension: 'SN',
 			label:
-				'When solving problems, I’m more interested in realistic applications than in hypothetical possibilities.'
+				'When solving problems, ISm more interested in realistic applications than in hypothetical possibilities.'
 		},
 		{
 			key: 'q6',
@@ -55,13 +56,13 @@
 			key: 'q7',
 			dimension: 'TF',
 			label:
-				'When making decisions, I rely more on objective criteria than on personal values or others’ feelings.'
+				'When making decisions, I rely more on objective criteria than on personal values or others feelings.'
 		},
 		{
 			key: 'q8',
 			dimension: 'TF',
 			label:
-				'I find it relatively easy to give impartial feedback, even if it might hurt someone’s feelings.'
+				'I find it relatively easy to give impartial feedback, even if it might hurt someones feelings.'
 		},
 		{
 			key: 'q9',
@@ -238,154 +239,389 @@
 	}
 </script>
 
-<div class="h-full w-full">
-	<!-- STEP 0: Intro Section -->
-	{#if !showQuestions}
-		<section class="flex h-full w-full flex-col items-center justify-center p-4">
-			<div class="mx-auto max-w-2xl text-center">
-				<h1 class="mb-4 text-2xl font-bold text-gray-700">
-					MBTI Questionnaire – Personalized Chatbot
-				</h1>
-				<p class="mb-6 text-gray-600">
-					Please answer these 12 questions on a scale from 1 (strongly disagree) to 10 (strongly
-					agree) to help us determine your MBTI personality type.
-				</p>
-				<button
-					on:click={startQuestions}
-					class="rounded bg-[#00C383] px-6 py-3 text-white transition-colors hover:bg-green-600"
-				>
-					Start
-				</button>
-			</div>
-		</section>
-	{/if}
-
-	<!-- STEP 1: MBTI Questions Form -->
-	{#if showQuestions && !loading && !showChatbot}
-		<section class="mx-auto max-w-2xl px-4 py-6">
-			<h2 class="mb-4 text-xl font-semibold text-gray-700">
-				Please rate each statement from 1 (strongly disagree) to 10 (strongly agree):
-			</h2>
-			{#each questions as q}
-				<div class="mb-6">
-					<label class="mb-2 block font-medium text-gray-700">{q.label}</label>
-					<div class="relative w-full">
-						<input
-							type="range"
-							min="1"
-							max="10"
-							bind:value={answers[q.key]}
-							class="slider w-full"
-							style={getSliderBackground(answers[q.key])}
-						/>
-					</div>
-					<span class="mt-1 block text-sm text-gray-500">
-						Current rating: {answers[q.key]}
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+	<!-- Header Section -->
+	<div
+		class="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 px-4 py-6 text-white shadow-lg sm:px-6 lg:px-8"
+	>
+		<div class="mx-auto max-w-7xl">
+			<div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+				<div class="flex items-center">
+					<span
+						class="mr-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/20 shadow-inner backdrop-blur-sm"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="h-6 w-6"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+							/>
+						</svg>
 					</span>
+					<div>
+						<h1 class="text-2xl font-bold">MBTI Personality Assessment</h1>
+						<p class="text-blue-100">
+							Discover your personality type and get personalized insights
+						</p>
+					</div>
 				</div>
-			{/each}
-			<button
-				on:click={handleSubmit}
-				class="rounded bg-[#00C383] px-6 py-3 text-white transition-colors hover:bg-green-600"
-			>
-				Submit
-			</button>
-		</section>
-	{/if}
-
-	<!-- STEP 2: Loading Spinner -->
-	{#if loading}
-		<div class="flex h-full w-full flex-col items-center justify-center">
-			<div
-				class="loader mb-4 h-16 w-16 rounded-full border-8 border-t-8 border-gray-200 ease-linear"
-			></div>
-			<h2 class="text-xl font-semibold text-gray-700">Calculating Your MBTI...</h2>
-		</div>
-	{/if}
-
-	<!-- STEP 3: Chatbot + MBTI Display -->
-	{#if showChatbot}
-		<div class="mx-auto max-w-3xl p-4">
-			<div class="mb-2 flex items-center gap-4">
-				<h2 class="text-xl font-semibold text-gray-700">MBTI Chatbot</h2>
-				<span class="inline-block rounded bg-green-100 px-3 py-1 text-green-700">
-					Your MBTI is {computedMbti}
-				</span>
+				<div
+					class="inline-flex items-center rounded-full bg-white/10 p-1 shadow-inner backdrop-blur-sm"
+				>
+					<button
+						class="rounded-full px-4 py-2 text-sm font-medium transition-colors {language === 'en'
+							? 'bg-white text-blue-700 shadow'
+							: 'text-white hover:bg-white/10'}"
+						on:click={() => (language = 'en')}
+					>
+						English
+					</button>
+					<button
+						class="rounded-full px-4 py-2 text-sm font-medium transition-colors {language === 'hi'
+							? 'bg-white text-blue-700 shadow'
+							: 'text-white hover:bg-white/10'}"
+						on:click={() => (language = 'hi')}
+					>
+						हिंदी
+					</button>
+				</div>
 			</div>
-			<p class="mb-4 text-sm text-gray-500">
-				We’ve summarized your responses. You can copy &amp; paste them into the chatbot if you like:
-			</p>
-			<button
-				on:click={copyPrompt}
-				class="mb-4 inline-block rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-			>
-				Copy Prompt
-			</button>
-			<iframe title="MBTI Chatbot" src={chatbotUrl} class="h-[600px] w-full border border-gray-300"
-			></iframe>
 		</div>
-	{/if}
+	</div>
+
+	<div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+		<!-- STEP 0: Intro Section -->
+		{#if !showQuestions}
+			<div class="mx-auto max-w-3xl">
+				<div class="overflow-hidden rounded-xl bg-white shadow-md">
+					<div
+						class="border-b border-gray-100 bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4"
+					>
+						<h2 class="flex items-center text-lg font-semibold text-gray-800">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="mr-2 h-5 w-5 text-blue-600"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+								/>
+							</svg>
+							Welcome to Your MBTI Journey
+						</h2>
+					</div>
+
+					<div class="p-6">
+						<div class="prose max-w-none text-gray-600">
+							<p class="mb-4">
+								This assessment will help you discover your MBTI personality type through a series
+								of carefully crafted questions. Your responses will be used to:
+							</p>
+							<ul class="mb-6 space-y-2">
+								<li class="flex items-center">
+									<svg
+										class="mr-2 h-5 w-5 text-blue-600"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M5 13l4 4L19 7"
+										/>
+									</svg>
+									Determine your preferences across four key dimensions
+								</li>
+								<li class="flex items-center">
+									<svg
+										class="mr-2 h-5 w-5 text-blue-600"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M5 13l4 4L19 7"
+										/>
+									</svg>
+									Provide insights into your natural tendencies
+								</li>
+								<li class="flex items-center">
+									<svg
+										class="mr-2 h-5 w-5 text-blue-600"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M5 13l4 4L19 7"
+										/>
+									</svg>
+									Enable personalized chatbot interactions
+								</li>
+							</ul>
+							<p class="mb-6">
+								The assessment consists of 12 questions, each rated on a scale from 1 (strongly
+								disagree) to 10 (strongly agree). Take your time to answer honestly for the most
+								accurate results.
+							</p>
+						</div>
+
+						<button
+							on:click={startQuestions}
+							class="group relative w-full overflow-hidden rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-center font-medium text-white shadow-md transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+						>
+							<span
+								class="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-40"
+							></span>
+							Start Assessment
+						</button>
+					</div>
+				</div>
+			</div>
+		{/if}
+
+		<!-- STEP 1: Questions Section -->
+		{#if showQuestions && !showChatbot}
+			<div class="mx-auto max-w-3xl">
+				<div class="overflow-hidden rounded-xl bg-white shadow-md">
+					<div
+						class="border-b border-gray-100 bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4"
+					>
+						<h2 class="flex items-center text-lg font-semibold text-gray-800">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="mr-2 h-5 w-5 text-blue-600"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+								/>
+							</svg>
+							Personality Assessment Questions
+						</h2>
+					</div>
+
+					<div class="p-6">
+						<form on:submit|preventDefault={handleSubmit} class="space-y-8">
+							{#each questions as question, i}
+								<div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+									<div class="mb-4 flex items-start justify-between">
+										<label class="text-base font-medium text-gray-900" for={question.key}>
+											<span
+												class="mr-2 inline-flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-600"
+											>
+												{i + 1}
+											</span>
+											{question.label}
+										</label>
+										<span
+											class="ml-4 inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-600"
+										>
+											{question.dimension}
+										</span>
+									</div>
+
+									<div class="mt-4">
+										<input
+											type="range"
+											id={question.key}
+											bind:value={answers[question.key]}
+											min="1"
+											max="10"
+											class="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200"
+											style={getSliderBackground(answers[question.key])}
+										/>
+										<div class="mt-2 flex justify-between text-sm text-gray-600">
+											<span>Strongly Disagree</span>
+											<span>Strongly Agree</span>
+										</div>
+										<div class="mt-2 text-center text-sm font-medium text-blue-600">
+											{answers[question.key]}/10
+										</div>
+									</div>
+								</div>
+							{/each}
+
+							<div class="flex justify-end">
+								<button
+									type="submit"
+									class="group relative overflow-hidden rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-3 text-center font-medium text-white shadow-md transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-70"
+									disabled={loading}
+								>
+									<span
+										class="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-40"
+									></span>
+									{#if loading}
+										<div class="flex items-center">
+											<svg
+												class="mr-2 h-5 w-5 animate-spin text-white"
+												xmlns="http://www.w3.org/2000/svg"
+												fill="none"
+												viewBox="0 0 24 24"
+											>
+												<circle
+													class="opacity-25"
+													cx="12"
+													cy="12"
+													r="10"
+													stroke="currentColor"
+													stroke-width="4"
+												></circle>
+												<path
+													class="opacity-75"
+													fill="currentColor"
+													d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+												></path>
+											</svg>
+											Processing...
+										</div>
+									{:else}
+										Submit Assessment
+									{/if}
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		{/if}
+
+		<!-- STEP 2: Chatbot Section -->
+		{#if showChatbot}
+			<div class="mx-auto max-w-4xl">
+				<div class="overflow-hidden rounded-xl bg-white shadow-md">
+					<div
+						class="border-b border-gray-100 bg-gradient-to-r from-green-50 to-emerald-50 px-6 py-4"
+					>
+						<h2 class="flex items-center text-lg font-semibold text-gray-800">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="mr-2 h-5 w-5 text-emerald-600"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+								/>
+							</svg>
+							Your Personalized MBTI Chatbot
+						</h2>
+					</div>
+
+					<div class="p-6">
+						<div class="mb-6 rounded-lg bg-blue-50 p-4">
+							<div class="flex items-start">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="mr-3 h-5 w-5 flex-shrink-0 text-blue-600"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+									/>
+								</svg>
+								<div>
+									<p class="font-medium text-blue-900">Your MBTI Type: {computedMbti}</p>
+									<p class="mt-1 text-sm text-blue-700">
+										The chatbot has been personalized based on your MBTI type. You can now interact
+										with it to get insights and recommendations tailored to your personality.
+									</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="h-[600px] w-full overflow-hidden rounded-lg border border-gray-200">
+							<iframe
+								src={chatbotUrl}
+								class="h-full w-full"
+								title="MBTI Chatbot"
+								allow="microphone; camera"
+							></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+		{/if}
+	</div>
 </div>
 
 <style>
-	/* Slider styling */
+	/* Custom slider styling */
 	input[type='range'] {
 		-webkit-appearance: none;
-		-moz-appearance: none;
 		appearance: none;
-		width: 100%;
-		height: 6px;
-		border-radius: 3px;
+		height: 8px;
+		border-radius: 4px;
+		background: #e5e7eb;
 		outline: none;
-		cursor: pointer;
 	}
-	input[type='range']::-webkit-slider-runnable-track {
-		height: 6px;
-		border-radius: 3px;
-	}
+
 	input[type='range']::-webkit-slider-thumb {
 		-webkit-appearance: none;
-		height: 16px;
-		width: 16px;
-		border-radius: 9999px;
-		background: #00c383;
-		border: 2px solid #fff;
-		box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
-		margin-top: -5px;
+		appearance: none;
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		background: #3b82f6;
 		cursor: pointer;
+		box-shadow:
+			0 0 0 2px white,
+			0 0 0 4px #3b82f6;
+		transition: all 0.2s ease;
 	}
-	input[type='range']:hover::-webkit-slider-thumb,
-	input[type='range']:focus::-webkit-slider-thumb {
-		background: #00a373;
+
+	input[type='range']::-webkit-slider-thumb:hover {
+		transform: scale(1.1);
 	}
-	input[type='range']::-moz-range-track {
-		height: 6px;
-		border-radius: 3px;
-		background: transparent;
-	}
+
 	input[type='range']::-moz-range-thumb {
-		height: 16px;
-		width: 16px;
-		border-radius: 9999px;
-		background: #00c383;
-		border: 2px solid #fff;
-		box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		background: #3b82f6;
 		cursor: pointer;
+		box-shadow:
+			0 0 0 2px white,
+			0 0 0 4px #3b82f6;
+		transition: all 0.2s ease;
+		border: none;
 	}
-	input[type='range']:hover::-moz-range-thumb,
-	input[type='range']:focus::-moz-range-thumb {
-		background: #00a373;
-	}
-	input[type='range']::-moz-range-progress {
-		background-color: transparent;
-	}
-	.loader {
-		border-top-color: #00c383;
-		animation: spinner 1s linear infinite;
-	}
-	@keyframes spinner {
-		to {
-			transform: rotate(360deg);
-		}
+
+	input[type='range']::-moz-range-thumb:hover {
+		transform: scale(1.1);
 	}
 </style>

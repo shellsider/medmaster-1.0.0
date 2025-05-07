@@ -13,30 +13,10 @@
 	let isPlaying = false; // Tracks if the audio is playing
 	let audioElement = null; // Reference to the audio element
 	let recentSymptoms = [
-		'Fever and body ache',
-		'Persistent headache',
 		'Cough and cold',
-		'Allergic reaction'
-	];
-
-	// Common medical categories
-	const commonCategories = [
-		{
-			name: 'Headache',
-			icon: 'M15 12a3 3 0 11-6 0 3 3 0 016 0z M14.828 14.828a3.987 3.987 0 01-5.656 0 3.987 3.987 0 01-1.172-2.828M6.75 7.5l.046-.049a3.75 3.75 0 016.408 0l.046.05'
-		},
-		{
-			name: 'Digestive',
-			icon: 'M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108a1.122 1.122 0 01-.298-1.164l.851-2.554a.745.745 0 00-.365-.796l-.504-.292a3 3 0 00-2.16-.241l-.637.159a4.372 4.372 0 00-2.055 1.315l-1.484 1.85a.75.75 0 00-.354-.067'
-		},
-		{
-			name: 'Respiratory',
-			icon: 'M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.48a8.287 8.287 0 009.324-2.266m-3.944 15.54a10.72 10.72 0 01-3.8 1.225 8.25 8.25 0 01-5.152-1.992 8.25 8.25 0 01-1.724-8.277'
-		},
-		{
-			name: 'Skin',
-			icon: 'M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5'
-		}
+		'Fever and body ache',
+		'Headache and migraine',
+		'Stomach pain and digestion'
 	];
 
 	// Convert the recommendation text (Markdown) to HTML.
@@ -234,48 +214,6 @@
 							{/if}
 						</div>
 
-						<!-- Common Categories -->
-						<div class="mb-6">
-							<label class="mb-3 flex items-center text-sm font-medium text-gray-700">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="mr-1.5 h-5 w-5 text-blue-500"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
-									/>
-								</svg>
-								{language === 'en' ? 'Common Medical Categories' : 'सामान्य चिकित्सा श्रेणियां'}
-							</label>
-							<div class="grid grid-cols-2 gap-2 md:grid-cols-4">
-								{#each commonCategories as category}
-									<button
-										type="button"
-										on:click={() => selectCategory(category)}
-										class="flex items-center rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-700 transition-all hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 hover:shadow-md"
-									>
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											fill="none"
-											viewBox="0 0 24 24"
-											stroke-width="1.5"
-											stroke="currentColor"
-											class="mr-2 h-5 w-5 text-blue-500"
-										>
-											<path stroke-linecap="round" stroke-linejoin="round" d={category.icon} />
-										</svg>
-										{category.name}
-									</button>
-								{/each}
-							</div>
-						</div>
-
 						<button
 							type="submit"
 							class="group relative w-full overflow-hidden rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-center font-medium text-white shadow-md transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-70"
@@ -336,11 +274,16 @@
 								d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
 							/>
 						</svg>
-						{language === 'en' ? 'Recent Searches' : 'हाल के खोज'}
+						{language === 'en' ? 'Common Symptoms' : 'सामान्य लक्षण'}
 					</h2>
 				</div>
 
 				<div class="p-6">
+					<p class="mb-4 text-sm text-gray-600">
+						{language === 'en'
+							? 'Click on any common symptom to get started'
+							: 'शुरू करने के लिए किसी भी सामान्य लक्षण पर क्लिक करें'}
+					</p>
 					<div class="space-y-2">
 						{#each recentSymptoms as symptom}
 							<button

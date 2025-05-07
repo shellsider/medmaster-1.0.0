@@ -349,6 +349,195 @@
 		</div>
 	</div>
 
+	<!-- MBTI Type Explanation Cards -->
+	<div class="rounded-xl bg-white p-6 shadow-md">
+		<h2 class="mb-6 text-lg font-semibold text-gray-800">Understanding Your MBTI Type</h2>
+
+		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+			<!-- E/I Card -->
+			<div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+				<div class="mb-4 flex items-center justify-between">
+					<h3 class="text-lg font-semibold text-gray-800">Energy Orientation</h3>
+					<span class="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700">
+						{$userData.mbti ? $userData.mbti[0] : '?'}
+					</span>
+				</div>
+				<div class="space-y-3">
+					{#if $userData.mbti && $userData.mbti[0] === 'I'}
+						<p class="text-gray-600">
+							You are an <span class="font-semibold text-blue-600">Introvert (I)</span>. You gain
+							energy from solitary activities and prefer to process information internally. You tend
+							to:
+						</p>
+						<ul class="list-inside list-disc space-y-1 text-gray-600">
+							<li>Recharge through alone time</li>
+							<li>Think before speaking</li>
+							<li>Prefer deep conversations over small talk</li>
+						</ul>
+						<p class="mt-2 text-sm text-gray-500">
+							Unlike Extroverts (E) who gain energy from social interaction, you find your energy
+							through reflection and internal processing.
+						</p>
+					{:else if $userData.mbti && $userData.mbti[0] === 'E'}
+						<p class="text-gray-600">
+							You are an <span class="font-semibold text-blue-600">Extrovert (E)</span>. You gain
+							energy from social interaction and prefer to process information externally. You tend
+							to:
+						</p>
+						<ul class="list-inside list-disc space-y-1 text-gray-600">
+							<li>Recharge through social activities</li>
+							<li>Think while speaking</li>
+							<li>Enjoy group discussions and activities</li>
+						</ul>
+						<p class="mt-2 text-sm text-gray-500">
+							Unlike Introverts (I) who gain energy from solitude, you find your energy through
+							interaction and external engagement.
+						</p>
+					{:else}
+						<p class="text-gray-600">
+							Complete your MBTI assessment to see your energy orientation.
+						</p>
+					{/if}
+				</div>
+			</div>
+
+			<!-- S/N Card -->
+			<div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+				<div class="mb-4 flex items-center justify-between">
+					<h3 class="text-lg font-semibold text-gray-800">Information Processing</h3>
+					<span class="rounded-full bg-purple-100 px-3 py-1 text-sm font-medium text-purple-700">
+						{$userData.mbti ? $userData.mbti[1] : '?'}
+					</span>
+				</div>
+				<div class="space-y-3">
+					{#if $userData.mbti && $userData.mbti[1] === 'S'}
+						<p class="text-gray-600">
+							You are a <span class="font-semibold text-purple-600">Sensor (S)</span>. You focus on
+							concrete facts and details. You tend to:
+						</p>
+						<ul class="list-inside list-disc space-y-1 text-gray-600">
+							<li>Trust experience and facts</li>
+							<li>Focus on the present</li>
+							<li>Prefer practical applications</li>
+						</ul>
+						<p class="mt-2 text-sm text-gray-500">
+							Unlike Intuitives (N) who focus on patterns and possibilities, you prefer to work with
+							concrete information and proven methods.
+						</p>
+					{:else if $userData.mbti && $userData.mbti[1] === 'N'}
+						<p class="text-gray-600">
+							You are an <span class="font-semibold text-purple-600">Intuitive (N)</span>. You focus
+							on patterns and possibilities. You tend to:
+						</p>
+						<ul class="list-inside list-disc space-y-1 text-gray-600">
+							<li>Trust insights and theories</li>
+							<li>Focus on future possibilities</li>
+							<li>Enjoy abstract concepts</li>
+						</ul>
+						<p class="mt-2 text-sm text-gray-500">
+							Unlike Sensors (S) who focus on concrete facts, you prefer to work with patterns and
+							theoretical possibilities.
+						</p>
+					{:else}
+						<p class="text-gray-600">
+							Complete your MBTI assessment to see your information processing style.
+						</p>
+					{/if}
+				</div>
+			</div>
+
+			<!-- T/F Card -->
+			<div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+				<div class="mb-4 flex items-center justify-between">
+					<h3 class="text-lg font-semibold text-gray-800">Decision Making</h3>
+					<span class="rounded-full bg-amber-100 px-3 py-1 text-sm font-medium text-amber-700">
+						{$userData.mbti ? $userData.mbti[2] : '?'}
+					</span>
+				</div>
+				<div class="space-y-3">
+					{#if $userData.mbti && $userData.mbti[2] === 'T'}
+						<p class="text-gray-600">
+							You are a <span class="font-semibold text-amber-600">Thinker (T)</span>. You make
+							decisions based on logic and objective analysis. You tend to:
+						</p>
+						<ul class="list-inside list-disc space-y-1 text-gray-600">
+							<li>Value fairness and consistency</li>
+							<li>Focus on objective criteria</li>
+							<li>Seek logical explanations</li>
+						</ul>
+						<p class="mt-2 text-sm text-gray-500">
+							Unlike Feelers (F) who consider values and impact on people, you prefer to make
+							decisions based on objective analysis.
+						</p>
+					{:else if $userData.mbti && $userData.mbti[2] === 'F'}
+						<p class="text-gray-600">
+							You are a <span class="font-semibold text-amber-600">Feeler (F)</span>. You make
+							decisions based on values and impact on people. You tend to:
+						</p>
+						<ul class="list-inside list-disc space-y-1 text-gray-600">
+							<li>Value harmony and empathy</li>
+							<li>Consider people's feelings</li>
+							<li>Seek consensus and understanding</li>
+						</ul>
+						<p class="mt-2 text-sm text-gray-500">
+							Unlike Thinkers (T) who focus on logic and analysis, you prefer to make decisions
+							based on values and impact on people.
+						</p>
+					{:else}
+						<p class="text-gray-600">
+							Complete your MBTI assessment to see your decision-making style.
+						</p>
+					{/if}
+				</div>
+			</div>
+
+			<!-- J/P Card -->
+			<div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+				<div class="mb-4 flex items-center justify-between">
+					<h3 class="text-lg font-semibold text-gray-800">Lifestyle Approach</h3>
+					<span class="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700">
+						{$userData.mbti ? $userData.mbti[3] : '?'}
+					</span>
+				</div>
+				<div class="space-y-3">
+					{#if $userData.mbti && $userData.mbti[3] === 'J'}
+						<p class="text-gray-600">
+							You are a <span class="font-semibold text-green-600">Judger (J)</span>. You prefer
+							structure and planning. You tend to:
+						</p>
+						<ul class="list-inside list-disc space-y-1 text-gray-600">
+							<li>Like clear plans and schedules</li>
+							<li>Prefer closure and decisions</li>
+							<li>Work best with deadlines</li>
+						</ul>
+						<p class="mt-2 text-sm text-gray-500">
+							Unlike Perceivers (P) who prefer flexibility and spontaneity, you work best with
+							structure and clear plans.
+						</p>
+					{:else if $userData.mbti && $userData.mbti[3] === 'P'}
+						<p class="text-gray-600">
+							You are a <span class="font-semibold text-green-600">Perceiver (P)</span>. You prefer
+							flexibility and spontaneity. You tend to:
+						</p>
+						<ul class="list-inside list-disc space-y-1 text-gray-600">
+							<li>Keep options open</li>
+							<li>Adapt to changing circumstances</li>
+							<li>Work best with flexibility</li>
+						</ul>
+						<p class="mt-2 text-sm text-gray-500">
+							Unlike Judgers (J) who prefer structure and planning, you work best with flexibility
+							and keeping options open.
+						</p>
+					{:else}
+						<p class="text-gray-600">
+							Complete your MBTI assessment to see your lifestyle approach.
+						</p>
+					{/if}
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- Quick Access Tools -->
 	<div class="rounded-xl bg-white p-6 shadow-md">
 		<h2 class="mb-4 text-lg font-semibold text-gray-800">Health Tools</h2>
